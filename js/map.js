@@ -14,28 +14,23 @@ var map = new ol.Map({
 });
 
 
-var pos = ol.proj.fromLonLat([105.772597, 21.036241]);
-
-// Vienna marker
-var marker = new ol.Overlay({
-    position: pos,
-    positioning: 'center-center',
-    element: document.getElementById('marker'),
-    stopEvent: false
-});
-map.addOverlay(marker);
-
-setTimeout(function () {
-    console.log("timeout");
-    var pos2 = ol.proj.fromLonLat([106.772597, 21.536241]);
-    // marker.position = pos2;
-    // marker.setGeometry(new ol.geom.Point(pos2));
-    // marker.moveTo();
-    console.log("timeout---end");
-}, 4000);
-
 
 $(document).ready(function(){
+
+    function addMarker(lat, long, userName, imageUrl){
+        console.log("add marker long: " + long + ", lat: " + lat);
+        var pos = ol.proj.fromLonLat([parseFloat(long), parseFloat(lat)]);
+        console.log(pos);
+
+        var marker = new ol.Overlay({
+            position: pos,
+            positioning: 'center-center',
+            element: document.getElementById('marker'),
+            stopEvent: false
+        });
+        map.addOverlay(marker);
+    }
+
     // Initialize Firebase
     var config = {
         apiKey: "AIzaSyA70nuqyypEmN7f_hw3cSJ6NhVtDxYxtzI",
@@ -49,9 +44,15 @@ $(document).ready(function(){
     var database = firebase.database();
 
 
-    var meberUser = database.ref('online-members');
+    var meberUser = database.ref('online-users');
     meberUser.on('value', function(snapshot) {
-        console.log("online-members changed");
+        console.log("online-users changed");
+        const onlineUsers = snapshot.val();
 
+
+        for (const [key, value] of Object.entries(onlineUsers)) {
+            console.log(key, value);
+            addMarker(value.lat, value.long, value.user_name, value.img_url);
+        }
     });
 });
