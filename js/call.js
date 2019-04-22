@@ -83,7 +83,7 @@ $(document).ready(function(){
         }).catch(err => console.log(err));
     }
 
-    initRtc();
+    // initRtc();
 
     $('.btn-call').on('click', function () {
         console.log("btn-call click");

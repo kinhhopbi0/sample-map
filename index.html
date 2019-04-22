@@ -24,11 +24,11 @@
     <div class="row">
         <div class="col col-md-10 offset-sm-0 offset-md-1" id="map" style="height: 600px;"></div>
     </div>
-    <div class="map-marker-container">
-        <div id="marker" title="Marker">
-            <img src="img/man.png" style="width: 42px; border-radius: 50%;" alt="Avatar">
-        </div>
-    </div>
+    <!--<div class="map-marker-container">-->
+        <!--<div id="marker" title="Marker">-->
+            <!--<img src="img/man.png" style="width: 42px; border-radius: 50%;" alt="Avatar">-->
+        <!--</div>-->
+    <!--</div>-->
     <div class="row">
         <div class="call-container">
             <video id="localVideo" autoplay muted></video>
@@ -36,10 +36,10 @@
         </div>
     </div>
 
-    <div class="row">
-        <input type="text" class="col-3 offset-1" id="remoteId" />
-        <button class="btn btn-success col-1 offset-1 btn-call">Call</button>
-    </div>
+    <!--<div class="row">-->
+        <!--<input type="text" class="col-3 offset-1" id="remoteId" />-->
+        <!--<button class="btn btn-success col-1 offset-1 btn-call">Call</button>-->
+    <!--</div>-->
 
 </div>
 
@@ -53,12 +53,11 @@
 
 
 <script src="https://www.gstatic.com/firebasejs/5.10.0/firebase.js"></script>
-<!--<script src="https://www.gstatic.com/firebasejs/5.10.0/firebase-database.js"></script>-->
-<script>
-
-</script>
 
 <script src="js/map.js"></script>
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAyAcIKHWRAm-F5cKUzunpDvsOrOmrIqfU&callback=initMap"
+        async defer></script>
+
 <script src="js/call.js"></script>
 </body>
 

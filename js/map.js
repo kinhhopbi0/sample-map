@@ -1,34 +1,63 @@
 
-
-var map = new ol.Map({
-    target: 'map',
-    layers: [
-        new ol.layer.Tile({
-            source: new ol.source.OSM()
-        })
-    ],
-    view: new ol.View({
-        center: ol.proj.fromLonLat([105.772597, 21.036241]),
-        zoom: 12
-    })
-});
+var map;
+function initMap() {
+    map = new google.maps.Map(document.getElementById('map'), {
+        center: {lat: 21.036241, lng: 105.772597},
+        zoom: 14
+    });
+}
 
 
 
 $(document).ready(function(){
 
+    var listMarker = {};
+    var listPopup = {};
+
     function addMarker(lat, long, userName, imageUrl){
         console.log("add marker long: " + long + ", lat: " + lat);
-        var pos = ol.proj.fromLonLat([parseFloat(long), parseFloat(lat)]);
-        console.log(pos);
 
-        var marker = new ol.Overlay({
-            position: pos,
-            positioning: 'center-center',
-            element: document.getElementById('marker'),
-            stopEvent: false
-        });
-        map.addOverlay(marker);
+        var marker = listMarker[userName];
+        var userPos = {lat: parseFloat(lat), lng: parseFloat(long)};
+        // popup
+        var contentString =
+            '<div class="map-marker-container">' +
+            '<div id="marker" title="Marker">' +
+            `<img class="img-avatar" src="${imageUrl}" alt="Avatar">` +
+            `<span>${userName}</span>` +
+            `<a href="#"><img class="img-call" src="img/phone-call.png" ></a>` +
+            '</div>' +
+            '</div>';
+
+        if(marker){
+            marker.setPosition(userPos);
+
+            var olInfoWindow = listPopup[userName];
+            olInfoWindow.setContent(contentString);
+        }else {
+            marker = new google.maps.Marker({
+                position: userPos,
+                map: map,
+                title: userName
+            });
+            listMarker[userName] = marker;
+
+            var infowindow = new google.maps.InfoWindow({
+                content: contentString
+            });
+
+            marker.addListener('click', function() {
+                infowindow.open(map, marker);
+            });
+            listPopup[userName] = infowindow;
+        }
+    }
+
+    function clearAllMaker() {
+        console.log("clear maker");
+        for (const [key, value] of Object.entries(listMarker)) {
+            value.setMap(null);
+        }
     }
 
     // Initialize Firebase

@@ -1,3 +1,21 @@
 #localVideo, #remoteVideo{
-    border: 1px solid black;
+    /*border: 1px solid black;*/
+}
+
+.map-marker-container .img-avatar {
+    width: 42px;
+    height: 42px;
+    border-radius: 50%;
+}
+
+.map-marker-container span{
+    clear: both;
+    font-weight: bold;
+    margin-left: 6px;
+    margin-right: 6px;
+}
+
+.map-marker-container .img-call{
+    width: 20px;
+    height: 20px;
 }
