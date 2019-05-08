@@ -35,6 +35,7 @@ $(document).ready(function(){
 
         peer = new Peer(roomId, keyConfig);
 
+        $('#my-peer-id').html(roomId);
 
         console.log("init client peer id: " + roomId);
 
