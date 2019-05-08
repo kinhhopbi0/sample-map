@@ -2,7 +2,7 @@
 var map;
 function initMap() {
     map = new google.maps.Map(document.getElementById('map'), {
-        center: {lat: 21.036241, lng: 105.772597},
+        center: {lat: 21.036, lng: 105.772},
         zoom: 14
     });
 }
@@ -31,7 +31,6 @@ $(document).ready(function(){
 
         if(marker){
             marker.setPosition(userPos);
-
             var olInfoWindow = listPopup[userName];
             olInfoWindow.setContent(contentString);
         }else {
@@ -51,6 +50,11 @@ $(document).ready(function(){
             });
             listPopup[userName] = infowindow;
         }
+    }
+
+    function removeMaker(userName){
+        console.log("clear user name: " + userName);
+        listMarker[userName].setMap(null);
     }
 
     function clearAllMaker() {
@@ -79,9 +83,20 @@ $(document).ready(function(){
         const onlineUsers = snapshot.val();
 
 
-        for (const [key, value] of Object.entries(onlineUsers)) {
-            console.log(key, value);
-            addMarker(value.lat, value.long, value.user_name, value.img_url);
+        if(!onlineUsers){
+            clearAllMaker()
+        }else {
+            for (const [key, value] of Object.entries(onlineUsers)) {
+                console.log(key, value);
+                addMarker(value.lat, value.long, value.user_name, value.img_url);
+            }
+
+            for (const [key, value] of Object.entries(listMarker)) {
+                if(!onlineUsers.hasOwnProperty(key)){
+                    removeMaker(key);
+                }
+            }
         }
+
     });
 });
