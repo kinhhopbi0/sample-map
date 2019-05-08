@@ -19,6 +19,7 @@ $(document).ready(function(){
         };
 
     }
+
     function initRtc() {
         const peerJsConfig = {
             host: "vinhpd-peerjs-server.herokuapp.com",
@@ -30,10 +31,13 @@ $(document).ready(function(){
 
         const uniqueId = Math.random().toString(36).substring(2)
             + (new Date()).getTime().toString(36);
-        peer = new Peer(uniqueId, keyConfig);
-        console.log("id: " + uniqueId);
+        const roomId = "com_cmc_tracking_app_" + uniqueId;
 
-        console.log("peer:");
+        peer = new Peer(roomId, keyConfig);
+
+
+        console.log("init client peer id: " + roomId);
+
         console.log(peer);
 
         initVideoPlayer();
@@ -42,48 +46,48 @@ $(document).ready(function(){
         navigator.mediaDevices.getUserMedia({audio: true, video: false}).then(localStream => {
             localStreamView.srcObject = localStream;
 
-            // var call = peer.call('vinhpd94739', stream);
-            //
-            // call.on('stream', function(remoteStream) {
-            //     const video = document.getElementById("remoteVideo");
-            //     video.srcVideo = remoteStream;
-            //     console.log("on stream...");
-            // });
+            const hash = window.location.hash;
+            if(hash){
+                console.log("make call after");
+                const remoteId = hash.replace("#", "");
+                console.log("calling to peer id: " + remoteId);
 
-            peer.on('call', function(call) {
-                // Answer the call, providing our mediaStream
-                call.answer(localStream);
+                const call = peer.call(remoteId, localStream);
 
                 call.on('stream', function(remoteStream) {
                     remoteStreamView.srcObject = remoteStream;
-                    console.log("on stream of receiver");
+                    console.log("on stream of caller");
                 });
-                console.log("on call of receiver");
-            });
 
+            }else {
+                console.log("waiting call before");
+                peer.on('call', function(call) {
+                    console.log("on call of receiver");
+                    call.answer(localStream);
 
+                    call.on('stream', function(remoteStream) {
+                        remoteStreamView.srcObject = remoteStream;
+                        console.log("on stream of receiver");
+                    });
+
+                });
+            }
 
         }).catch(err => console.log(err));
 
 
     }
 
-    function callRtc(remoteId){
-        navigator.mediaDevices.getUserMedia({audio: true, video: false}).then(localStream => {
-            localStreamView.srcObject = localStream;
+    // function callRtc(remoteId){
+    //     navigator.mediaDevices.getUserMedia({audio: true, video: false}).then(localStream => {
+    //         localStreamView.srcObject = localStream;
+    //
+    //
+    //
+    //     }).catch(err => console.log(err));
+    // }
 
-            const call = peer.call(remoteId, localStream);
-
-            call.on('stream', function(remoteStream) {
-                remoteStreamView.srcObject = remoteStream;
-                console.log("on stream of caller");
-            });
-
-
-        }).catch(err => console.log(err));
-    }
-
-    // initRtc();
+    initRtc();
 
     $('.btn-call').on('click', function () {
         console.log("btn-call click");
@@ -92,9 +96,6 @@ $(document).ready(function(){
         callRtc(remoteId);
 
     })
-
-
-
 });
 
 

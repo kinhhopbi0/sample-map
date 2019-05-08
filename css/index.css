@@ -19,3 +19,13 @@
     width: 20px;
     height: 20px;
 }
+
+.call-container{
+    margin-top: 60px;
+}
+
+.call-container video{
+    border: 1px solid black;
+    margin-top: 15px;
+    min-height: 300px;
+}

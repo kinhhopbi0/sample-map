@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="stylesheet" href="css/bootstrap.css">
+    <link rel="stylesheet" href="css/bootstrap-grid.css">
+    <link rel="stylesheet" href="css/bootstrap-reboot.css">
+
+
+    <link rel="stylesheet" href="https://cdn.rawgit.com/openlayers/openlayers.github.io/master/en/v5.3.0/css/ol.css" type="text/css">
+
+    <link rel="stylesheet" href="css/index.css">
+</head>
+<body>
+
+<div class="container-fluid">
+    <div class="call-container">
+        <div class="row">
+            <video class="col col-md-6 offset-md-3 mr-4" id="remoteVideo" autoplay></video>
+        </div>
+        <div class="row">
+            <video class="col col-md-6 offset-md-3" id="localVideo" autoplay muted></video>
+        </div>
+    </div>
+
+
+
+    <!--<div class="row">-->
+        <!--<input type="text" class="col-3 offset-1" id="remoteId" />-->
+        <!--<button class="btn btn-success col-1 offset-1 btn-call">Call</button>-->
+    <!--</div>-->
+
+</div>
+
+<script src="js/jquery-3.4.1.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/peerjs@0.3.20/dist/peer.min.js"></script>
+<script src="https://www.gstatic.com/firebasejs/5.10.0/firebase.js"></script>
+
+
+<script src="js/call.js"></script>
+</body>
+
+</html>
