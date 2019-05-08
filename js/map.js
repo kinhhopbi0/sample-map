@@ -7,10 +7,7 @@ function initMap() {
     });
 }
 
-
-
 $(document).ready(function(){
-
     var listMarker = {};
     var listPopup = {};
 
@@ -88,7 +85,8 @@ $(document).ready(function(){
         }else {
             for (const [key, value] of Object.entries(onlineUsers)) {
                 console.log(key, value);
-                addMarker(value.lat, value.long, value.user_name, value.img_url);
+                var trackingInfo = value['tracking-info'];
+                addMarker(trackingInfo.lat, trackingInfo.long, trackingInfo.user_name, trackingInfo.img_url);
             }
 
             for (const [key, value] of Object.entries(listMarker)) {
